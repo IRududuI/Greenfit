@@ -1,1 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GreenFit — Абонементы в тренажерный зал</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style lang="scss">
+        /* ========== SCSS: переменные, вложенность, миксины ========== */
+        
+        $primary-green: #2e7d32;
+        $secondary-green: #4caf50;
+        $light-green: #e8f5e9;
+        $mint-green: #c8e6c9;
+        $dark-text: #1b5e20;
+        $white: #ffffff;
+        $shadow: 0 20px 35px -12px rgba(46,125,50,0.15);
+        
+        @mixin border-radius-sm {
+            border-radius: 28px;
+        }
+        
+        @mixin flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: $light-green;
+            color: $dark-text;
+            scroll-behavior: smooth;
+        }
+        
+        /* Навбар */
+        .navbar-green {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            .navbar-brand {
+                font-weight: 800;
+                font-size: 1.8rem;
+                color: $primary-green;
+                i {
+                    color: $secondary-green;
+                    font-size: 2rem;
+                }
+            }
+            .nav-link {
+                font-weight: 600;
+                color: $dark-text;
+                transition: 0.25s;
+                margin: 0 6px;
+                &:hover {
+                    color: $primary-green;
+                    transform: translateY(-2px);
+                }
+            }
+        }
+        
+        /* Hero секция */
+        .hero-green {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+            padding: 100px 0 80px;
+            border-radius: 0 0 50px 50px;
+            .hero-title {
+                font-size: 3.4rem;
+                font-weight: 800;
+                color: #1b5e20;
+                .leaf-icon {
+                    animation: sway 3s infinite ease-in-out;
+                    display: inline-block;
+                }
+            }
+            .btn-green {
+                background: $primary-green;
+                border: none;
+                padding: 12px 32px;
+                border-radius: 60px;
+                font-weight: 700;
+                transition: 0.2s;
+                color: white;
+                text-decoration: none;
+                display: inline-block;
+                &:hover {
+                    background: darken($primary-green, 8%);
+                    transform: scale(1.02);
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                    color: white;
+                }
+            }
+        }
+        
+        @keyframes sway {
+            0%,100% { transform: rotate(0deg); }
+            50% { transform: rotate(8deg); }
+        }
+        
+        /* Секция "О нас" — Grid */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: center;
+            padding: 60px 0;
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-card {
+                background: $white;
+                padding: 35px;
+                border-radius: 38px;
+                box-shadow: $shadow;
+                transition: 0.3s;
+                &:hover {
+                    transform: translateY(-8px);
+                }
+                h3 {
+                    color: $primary-green;
+                    font-weight: 700;
+                    margin-bottom: 20px;
+                }
+                .feature-list {
+                    list-style: none;
+                    padding: 0;
+                    li {
+                        margin: 14px 0;
+                        i {
+                            color: $secondary-green;
+                            margin-right: 14px;
+                            font-size: 1.3rem;
+                        }
+                    }
+                }
+            }
+            .about-img {
+                img {
+                    width: 100%;
+                    border-radius: 48px;
+                    box-shadow: $shadow;
+                    transition: 0.4s;
+                    &:hover {
+                        transform: scale(1.01);
+                    }
+                }
+            }
+        }
+        
+        /* Секция абонементов */
+        .membership-section {
+            background: $mint-green;
+            padding: 70px 20px;
+            border-radius: 60px 60px 30px 30px;
+            h2 {
+                font-weight: 800;
+                color: $primary-green;
+                text-align: center;
+                margin-bottom: 50px;
+            }
+            .cards-flex {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+                .price-card {
+                    flex: 1 1 280px;
+                    max-width: 320px;
+                    background: $white;
+                    border-radius: 36px;
+                    padding: 32px 20px;
+                    text-align: center;
+                    transition: all 0.3s;
+                    box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+                    &:hover {
+                        transform: translateY(-12px);
+                        box-shadow: 0 28px 38px rgba(46,125,50,0.2);
+                    }
+                    .price {
+                        font-size: 2.7rem;
+                        font-weight: 800;
+                        color: $primary-green;
+                        span {
+                            font-size: 1rem;
+                        }
+                    }
+                    .btn-outline-green {
+                        border: 2px solid $primary-green;
+                        background: transparent;
+                        border-radius: 50px;
+                        padding: 10px 20px;
+                        font-weight: 700;
+                        color: $primary-green;
+                        transition: 0.2s;
+                        text-decoration: none;
+                        display: inline-block;
+                        cursor: pointer;
+                        &:hover {
+                            background: $primary-green;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+        
+        /* Галерея */
+        .gallery-green {
+            padding: 70px 0;
+            h2 {
+                text-align: center;
+                font-weight: 800;
+                color: $primary-green;
+                margin-bottom: 45px;
+            }
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 28px;
+                .gallery-item {
+                    overflow: hidden;
+                    border-radius: 32px;
+                    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+                    transition: 0.3s;
+                    img {
+                        width: 100%;
+                        height: 260px;
+                        object-fit: cover;
+                        transition: 0.6s;
+                    }
+                    &:hover img {
+                        transform: scale(1.08);
+                    }
+                    .gallery-caption {
+                        background: $white;
+                        padding: 12px;
+                        text-align: center;
+                        font-weight: 600;
+                        color: $dark-text;
+                    }
+                }
+            }
+        }
+        
+        /* Форма записи */
+        .form-section {
+            background: $light-green;
+            padding: 70px 20px;
+            .form-green {
+                background: $white;
+                max-width: 680px;
+                margin: 0 auto;
+                padding: 40px 45px;
+                border-radius: 48px;
+                box-shadow: $shadow;
+                .form-control, .form-select {
+                    border-radius: 30px;
+                    border: 1px solid #cfe9cf;
+                    padding: 12px 18px;
+                    &:focus {
+                        border-color: $primary-green;
+                        box-shadow: 0 0 0 0.2rem rgba(76,175,80,0.2);
+                    }
+                }
+                .btn-submit {
+                    background: $primary-green;
+                    border-radius: 50px;
+                    padding: 13px 20px;
+                    font-weight: bold;
+                    width: 100%;
+                    transition: 0.2s;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                    display: inline-block;
+                    text-align: center;
+                    &:hover {
+                        background: darken($primary-green, 8%);
+                    }
+                }
+                .error-text {
+                    color: #d32f2f;
+                    font-size: 0.8rem;
+                    margin-top: 5px;
+                }
+            }
+        }
+        
+        footer {
+            background: $primary-green;
+            color: #e8f5e9;
+            text-align: center;
+            padding: 30px;
+            a {
+                color: #c8e6c9;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem !important;
+            }
+            .form-green {
+                padding: 25px 20px !important;
+            }
+        }
+    </style>
+</head>
+<body>
 
+<!-- Адаптивное меню навигации -->
+<nav class="navbar navbar-expand-lg navbar-green sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-brightness-alt-high"></i> Green<span style="color:#4caf50;">Fit</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#greenNav" aria-controls="greenNav" aria-expanded="false" aria-label="Меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="greenNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#about">О нас</a></li>
+                <li class="nav-item"><a class="nav-link" href="#prices">Абонементы</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gallery">Галерея</a></li>
+                <li class="nav-item"><a class="nav-link" href="#booking">Запись</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero блок -->
+<section class="hero-green">
+    <div class="container text-center">
+        <h1 class="hero-title mb-3">Абонементы в GREEN FIT <span class="leaf-icon">💪</span></h1>
+        <p class="lead fs-4">Зарядись энергией, укрепи здоровье и стань частью комьюнити</p>
+        <a href="#booking" class="btn-green">🔥 Выбрать абонемент</a>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Секция "О нас" с Grid -->
+    <section id="about" class="about-grid">
+        <div class="about-card">
+            <h3><i class="bi bi-tree-fill"></i> О нас</h3>
+            <p>Современный тренажёрный зал с продуманным пространством. Профессиональные тренеры, новейшее оборудование и зоны отдыха.</p>
+            <ul class="feature-list">
+                <li><i class="bi bi-check-circle-fill"></i> Более 20 видов групповых программ</li>
+                <li><i class="bi bi-droplet-fill"></i> Зона функционального тренинга</li>
+                <li><i class="bi bi-cup-straw"></i> Фитобар и здоровое питание</li>
+                <li><i class="bi bi-calendar-check"></i> Гибкие абонементы без скрытых комиссий</li>
+            </ul>
+        </div>
+        <div class="about-img">
+            <img src="https://picsum.photos/id/124/600/450" alt="Современный тренажерный зал" loading="lazy">
+        </div>
+    </section>
+</div>
+
+<!-- Секция абонементов (карточки Flexbox) -->
+<section id="prices" class="membership-section">
+    <div class="container">
+        <h2>💪 Наши абонементы</h2>
+        <div class="cards-flex">
+            <div class="price-card">
+                <i class="bi bi-emoji-sunglasses fs-1" style="color:#2e7d32;"></i>
+                <h3 class="mt-2">Старт</h3>
+                <div class="price">2 990 ₽ <span>/ месяц</span></div>
+                <p class="mt-3">Посещение днём, тренажёрный зал + раздевалка.</p>
+                <a class="btn-outline-green w-100 mt-3" href="#booking">Записаться</a>
+            </div>
+            <div class="price-card">
+                <i class="bi bi-star-fill fs-1" style="color:#4caf50;"></i>
+                <h3 class="mt-2">Премиум</h3>
+                <div class="price">5 490 ₽ <span>/ месяц</span></div>
+                <p class="mt-3">24/7, все групповые занятия, сауна.</p>
+                <a class="btn-outline-green w-100 mt-3" href="#booking">Выбрать</a>
+            </div>
+            <div class="price-card">
+                <i class="bi bi-gem fs-1" style="color:#1b5e20;"></i>
+                <h3 class="mt-2">Год без границ</h3>
+                <div class="price">39 900 ₽ <span>/ 12 мес</span></div>
+                <p class="mt-3">Персональный тренажёр, гостевые пропуска.</p>
+                <a class="btn-outline-green w-100 mt-3" href="#booking">Купить</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Галерея: 3 фото -->
+<section id="gallery" class="gallery-green">
+    <div class="container">
+        <h2>📸 Атмосфера зала</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://picsum.photos/id/322/500/350" alt="Зона с гантелями">
+                <div class="gallery-caption">Зона свободных весов</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/id/169/500/350" alt="Групповое занятие">
+                <div class="gallery-caption">Групповые тренировки</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/id/155/500/350" alt="Кардиозона">
+                <div class="gallery-caption">Кардиозона</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Форма записи с валидацией -->
+<section id="booking" class="form-section">
+    <div class="container">
+        <div class="form-green">
+            <h3 class="text-center mb-4" style="color:#2e7d32;">📝 Запись на абонемент</h3>
+            <form id="membershipForm" action="#" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label fw-semibold">Ваше имя *</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Алексей" required>
+                    <div class="error-text" id="nameError"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">Email *</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="alex@fit.ru" required>
+                    <div class="error-text" id="emailError"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label fw-semibold">Телефон *</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="+7 999 123-45-67" required>
+                    <div class="error-text" id="phoneError"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="tariff" class="form-label fw-semibold">Выберите абонемент</label>
+                    <select class="form-select" id="tariff" name="tariff">
+                        <option value="Старт">Старт — 2 990 ₽</option>
+                        <option value="Премиум">Премиум — 5 490 ₽</option>
+                        <option value="Год без границ">Год без границ — 39 900 ₽</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">Забронировать абонемент</button>
+                <div id="formSuccess" class="alert alert-success mt-4 d-none" role="alert">
+                    ✅ Спасибо! Наш менеджер свяжется с вами для оформления абонемента.
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <i class="bi bi-flower1"></i> © 2025 GreenFit — Абонементы в тренажерный зал | <a href="#" class="text-white">Политика конфиденциальности</a>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript валидация формы -->
+<script>
+    (function() {
+        const form = document.getElementById('membershipForm');
+        const nameField = document.getElementById('name');
+        const emailField = document.getElementById('email');
+        const phoneField = document.getElementById('phone');
+        const nameErr = document.getElementById('nameError');
+        const emailErr = document.getElementById('emailError');
+        const phoneErr = document.getElementById('phoneError');
+        const successDiv = document.getElementById('formSuccess');
+        
+        function validateFormClient() {
+            let valid = true;
+            
+            const nameVal = nameField.value.trim();
+            if (nameVal === "") {
+                nameErr.textContent = "Укажите ваше имя";
+                valid = false;
+            } else if (nameVal.length < 2) {
+                nameErr.textContent = "Имя должно содержать минимум 2 буквы";
+                valid = false;
+            } else {
+                nameErr.textContent = "";
+            }
+            
+            const emailVal = emailField.value.trim();
+            const emailRegex = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
+            if (emailVal === "") {
+                emailErr.textContent = "Введите email для связи";
+                valid = false;
+            } else if (!emailRegex.test(emailVal)) {
+                emailErr.textContent = "Некорректный формат email";
+                valid = false;
+            } else {
+                emailErr.textContent = "";
+            }
+            
+            const phoneVal = phoneField.value.trim();
+            const digits = phoneVal.replace(/\D/g, '');
+            if (phoneVal === "") {
+                phoneErr.textContent = "Телефон обязателен";
+                valid = false;
+            } else if (digits.length < 10) {
+                phoneErr.textContent = "Введите корректный номер телефона";
+                valid = false;
+            } else {
+                phoneErr.textContent = "";
+            }
+            return valid;
+        }
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateFormClient()) {
+                successDiv.classList.remove('d-none');
+                form.reset();
+                setTimeout(() => {
+                    successDiv.classList.add('d-none');
+                }, 5000);
+            } else {
+                successDiv.classList.add('d-none');
+            }
+        });
+        
+        [nameField, emailField, phoneField].forEach(field => {
+            field.addEventListener('input', function() {
+                validateFormClient();
+            });
+        });
+    })();
+</script>
+</body>
+</html>
